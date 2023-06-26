@@ -12,6 +12,8 @@ services:
     depends_on:
       init:
         condition: service_completed_successfully
+      socat:
+        condition: service_started
     command: -I printer_data/run/klipper.tty -a printer_data/run/klipper.sock printer_data/config/printer.cfg -l printer_data/logs/klippy.log
     volumes:
       - /dev:/dev
@@ -123,7 +125,7 @@ services:
       org.prind.service: klipperscreen
 
   moonraker-telegram-bot:
-    image: lefskiy/moonraker-telegram-bot:development
+    image: lefskiy/moonraker-telegram-bot:latest
     restart: unless-stopped
     logging:
       driver: none
@@ -187,8 +189,27 @@ services:
     labels:
       org.prind.service: traefik
 
+  socat:
+    image: alpine/socat:1.7.4.4
+    privileged: true
+    container_name: socat
+    command: "-d -d -d -x pty,raw,group-late=dialout,mode=660 tcp:10.255.255.47/:23"
+    #command: "pty,link=/opt/printer,raw,b230400,cstopb=1,cs8,group-late=dialout,mode=777 tcp:192.168.0.7:23"
+    #command: "-d -d -d -x PTY,raw,b230400,parenb=0,cstopb=2,cs8,link=/opt/printer,group-late=dialout,mode=660 tcp:192.168.0.7:23"
+    volumes:
+      - "/dev:/dev"
+    restart: unless-stopped
+    profiles:
+      - socat
+    labels:
+      org.prind.service: socat
+
 volumes:
   run:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+  dev:
     driver_opts:
       type: tmpfs
       device: tmpfs
