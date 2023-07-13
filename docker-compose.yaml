@@ -194,7 +194,7 @@ services:
     image: alpine/socat:1.7.4.4
     privileged: true
     container_name: socat
-    command: "-d -d -d -x pty,raw,group-late=dialout,mode=660 tcp:10.255.255.47:23,forever,interval=10,fork"
+    command: "-d -d -d -x pty,link=/dev/virtualcom0,raw,group-late=dialout,mode=660,ixon=1,ixoff=1,parenb=1,parodd=1,cstopb=1,cs8 tcp:10.0.1.7:23"
     #command: "pty,link=/opt/printer,raw,b230400,cstopb=1,cs8,group-late=dialout,mode=777 tcp:192.168.0.7:23"
     #command: "-d -d -d -x PTY,raw,b230400,parenb=0,cstopb=2,cs8,link=/opt/printer,group-late=dialout,mode=660 tcp:192.168.0.7:23"
     volumes:
