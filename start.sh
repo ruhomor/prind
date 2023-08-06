@@ -1,0 +1,1 @@
+docker compose --profile socat --profile fluidd --profile moonraker-telegram-bot up
