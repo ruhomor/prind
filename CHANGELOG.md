@@ -2,18 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 <!--
 ## [Unreleased]
 ### Added
+### Fixed
+### Changed
+- docker: update repo url for KlipperScreen
+- scripts: exclude `out` and `resonances` directory from support archive
+### Removed
+-->
+
+## [v1.8.0] - 2023-08-06
+### Added
 - CHANGELOG.md
+- custom/docker-compose.custom.unique-uid-gid.override.yaml
 ### Fixed
 - Github Action Runner running out of space
 ### Changed
-### Removed
--->
+- Refactor moonraker-timelapse custom setup into an single override file
+- Clarify docs for upgrading the stack related to #86
+- Minimize get-info output and prompt user to upload the generated archive
+- Improve command handling in get-info
+
+**Full Changelog**: https://github.com/mkuf/prind/compare/v1.7.1...v1.8.0
 
 ## [v1.7.1] - 2023-06-22
 ### Changed
